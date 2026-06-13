@@ -1,0 +1,14 @@
+{
+    "frames": {
+        "idle_0": { "frame": { "x": 0, "y": 0,  "w": 32, "h": 32 } },
+        "idle_1": { "frame": { "x": 32, "y": 0, "w": 32, "h": 32 } }
+    },
+    "meta": {
+        "image": "/images/wave_bubble.png",
+        "size": { "w": 64, "h": 32 },
+        "scale": 1
+    },
+    "animations": {
+        "idle": ["idle_0", "idle_1"]
+    }
+}
