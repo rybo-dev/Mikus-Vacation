@@ -1,5 +1,4 @@
 import { Assets, Sprite, Container, AnimatedSprite, Polygon, Graphics, TextureSource } from 'pixi.js';
-import {initDevtools} from '@pixi/devtools';
 import { containerResizeSetup } from '/utils/utils.js'
 TextureSource.defaultOptions.scaleMode = 'nearest';
 const debug = false; // debug toggle

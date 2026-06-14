@@ -3,7 +3,6 @@ if (import.meta.env.DEV) {
 }
 
 import { Application, TextureSource, Assets } from 'pixi.js';
-import { initDevtools } from '@pixi/devtools';
 import { init, switchTo } from '/sceneManager.js';
 import * as MainMenu from '/levels/menu.js';
 import * as SurfLevel from '/levels/surf_level.js';
