@@ -1,3 +1,7 @@
+if (import.meta.env.DEV) {
+    import("@pixi/devtools");
+}
+
 import { Application, TextureSource, Assets } from 'pixi.js';
 import { initDevtools } from '@pixi/devtools';
 import { init, switchTo } from '/sceneManager.js';
