@@ -1,6 +1,8 @@
 import { Assets, Sprite, Texture, Container, AnimatedSprite, TextureSource, Text, TextStyle } from 'pixi.js';
 import { containerResizeSetup } from '../utils/utils';
+import { showLoading, hideLoading } from '../utils/loading_screen';
 import { Player } from 'textalive-app-api';
+import { LyricSpawner } from '../utils/lyrics_spawner_surf';
 TextureSource.defaultOptions.scaleMode = "nearest";
 
 let isPlaying = false;
@@ -14,7 +16,11 @@ function applyHitArea(sprite){
 }
 
 export async function loadLevel(pixiApp, switchTo) {
-    // lyric player
+    // LOADING SCREEN
+    await showLoading(pixiApp);
+
+
+    // lyric player setup
     const player = new Player({app: {token: "uSneVT2PK899pLnG"}});
 
     const container = new Container();
@@ -47,11 +53,6 @@ export async function loadLevel(pixiApp, switchTo) {
     const playToggleButton = new Sprite(playTexture);
     applyHitArea(playToggleButton);
     uiButtonContainer.addChild(playToggleButton);
-    playToggleButton.on("pointerup", () => {
-        isPlaying = !isPlaying;
-
-        playToggleButton.texture = isPlaying ? pauseTexture : playTexture;
-    })
 
     // stop button
     const stopButton = new Sprite(Assets.get("stop_button"));
@@ -86,24 +87,42 @@ export async function loadLevel(pixiApp, switchTo) {
     title.position.set(0, 70);
     container.addChild(title);
 
+    // Lyric Spawner
+    const lyricSpawner = new LyricSpawner(pixiApp, container, surfbg, {
+        textSpeed: 200,
+        moveSpeed: 50
+    });
+
+    // animate the word
     const animateWord = function (now, unit) {
         if (unit.contains(now)) {
             text.text = unit.text;
+            lyricSpawner.spawnText(unit.text);
         }
     }
+
+    let isVideoReady = false;
 
     // Player
     player.addListener({
         onAppReady: (app) => {
             if (!app.managed) {
                 playToggleButton.on("pointerup", () => {
+                    if (!isVideoReady){ return }
+                    
                     if (isPlaying){
                         player.video && player.requestPause();
                     } else {
                         player.video && player.requestPlay();
                     }
+                })
 
-                    isPlaying = !isPlaying;
+                stopButton.on("pointerup", () => {
+                    if (!isVideoReady){ return }
+
+                    if (isPlaying){
+                        player.video && player.requestStop();
+                    }
                 })
             }
 
@@ -123,16 +142,35 @@ export async function loadLevel(pixiApp, switchTo) {
             }
         },
 
+        onVideoReady: (video) => {
+            isVideoReady = true;
+        },
+
         onTimerReady: () => {
             artist.text += player.data.song.artist;
             title.text += player.data.song.name;
 
-            let w = player.video.firstWord;
+            let w = player.video.firstChar;
 
             while(w && w.next){
                 w.animate = animateWord;
                 w = w.next;
             }
+
+            hideLoading();
+        },
+
+        onPlay: () => { 
+            isPlaying = true;
+            playToggleButton.texture = pauseTexture;
+        },
+        onPause: () => { 
+            isPlaying = false; 
+            playToggleButton.texture = playTexture;
+        },
+        onStop: () => { 
+            isPlaying = false;
+            playToggleButton.texture = playTexture;
         }
 
     });

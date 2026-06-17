@@ -22,6 +22,15 @@
             ]
         },
         {
+            "name" : "loadingScreen",
+            "assets" : [
+                {
+                    "alias" : "loadingSc",
+                    "src" : "/assets/images/loading_placeholder1.png"
+                }
+            ]
+        },
+        {
             "name" : "main_menu",
             "assets" : [
                 {
@@ -68,6 +77,15 @@
                 {
                     "alias" : "wave",
                     "src" : "/assets/images/wave1.png"
+                }
+            ]
+        },
+        {
+            "name" : "fireworks_level",
+            "assets" : [
+                {
+                    "alias" : "fireworks_bg",
+                    "src" : "/assets/images/Fireworks_bg1.png"
                 }
             ]
         }

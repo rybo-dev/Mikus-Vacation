@@ -9,7 +9,6 @@ export function containerResizeSetup(app, bg, container){
         const scaleY = app.screen.height / bgNaturalHeight;
         const scale = Math.min(scaleX, scaleY); //min for full display of image, max for filled window
 
-        // scales the container to the current window scale
         container.scale.set(scale);
         container.x = (app.screen.width - bgNaturalWidth * scale) / 2;
         container.y = (app.screen.height - bgNaturalHeight * scale) / 2;
@@ -17,13 +16,13 @@ export function containerResizeSetup(app, bg, container){
 
     resize();
 
-    // Add event listener for window resize
-    window.addEventListener('resize', () => {
+    const onResize = () => {
         app.renderer.resize(window.innerWidth, window.innerHeight);
         resize();
-    });
+    };
 
-    // cleanup. removing event listener
+    window.addEventListener('resize', onResize);
+
     return () => window.removeEventListener('resize', onResize);
 }
 
