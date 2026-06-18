@@ -1,0 +1,120 @@
+{
+    "bundles" : [
+        {
+            "name" : "shared",
+            "assets" : [
+                {
+                    "alias" : "x_button",
+                    "src" : "assets/images/x_button1.png"
+                },
+                {
+                    "alias" : "play_button",
+                    "src" : "assets/images/play_button1.png"
+                },
+                {
+                    "alias" : "pause_button",
+                    "src" : "assets/images/pause_button1.png"
+                },
+                {
+                    "alias" : "stop_button",
+                    "src" : "assets/images/stop_button1.png"
+                }
+            ]
+        },
+        {
+            "name" : "loadingScreen",
+            "assets" : [
+                {
+                    "alias" : "loadingSc",
+                    "src" : "assets/images/loading_placeholder1.png"
+                }
+            ]
+        },
+        {
+            "name" : "main_menu",
+            "assets" : [
+                {
+                    "alias" : "menu_bg",
+                    "src" : "assets/images/Menu_placeholder1.png"
+                },
+                {
+                    "alias" : "menu_night_bg",
+                    "src" : "assets/images/Menu_night_placeholder1.png"
+                },
+                {
+                    "alias" : "camera_bubble",
+                    "src" : "assets/camera_bubble_atlas.json"
+                },
+                {
+                    "alias" : "wave_bubble",
+                    "src" : "assets/wave_bubble_atlas.json"
+                },
+                {
+                    "alias" : "sunflower_bubble",
+                    "src" : "assets/sunflower_bubble_atlas.json"
+                },
+                {
+                    "alias" : "meteor_bubble",
+                    "src" : "assets/meteor_bubble_atlas.json"
+                },
+                {
+                    "alias" : "fireworks_bubble",
+                    "src" : "assets/fireworks_bubble_atlas.json"
+                },
+                {
+                    "alias" : "bus_bubble",
+                    "src" : "assets/bus_bubble_atlas.json"
+                }
+            ]
+        },
+        {
+            "name" : "surf_level",
+            "assets" : [
+                {
+                    "alias" : "surf_bg",
+                    "src" : "assets/images/Surfing_bg.png"
+                },
+                {
+                    "alias" : "wave",
+                    "src" : "assets/images/wave1.png"
+                }
+            ]
+        },
+        {
+            "name" : "fireworks_level",
+            "assets" : [
+                {
+                    "alias" : "fireworks_bg",
+                    "src" : "assets/images/Fireworks_bg1.png"
+                }
+            ]
+        },
+        {
+            "name" : "underwater_level",
+            "assets" : [
+                {
+                    "alias" : "underwater_bg",
+                    "src" : "assets/images/Underwater_bg1.png"
+                }
+            ]
+        },
+        {
+            "name" : "meteor_level",
+            "assets" : [
+                {
+                    "alias" : "meteor_bg",
+                    "src" : "assets/images/meteor_bg1.png"
+                }
+            ]
+        },
+        {
+            "name" : "suflower_level",
+            "assets" : [
+                {
+                    "alias" : "suflower_bg",
+                    "src" : "assets/images/sunlfower_bg1.png"
+                }
+            ]
+        }
+    ]
+}
