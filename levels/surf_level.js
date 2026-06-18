@@ -97,7 +97,13 @@ export async function loadLevel(pixiApp, switchTo) {
     const animateWord = function (now, unit) {
         if (unit.contains(now)) {
             text.text = unit.text;
-            lyricSpawner.spawnText(unit.text);
+
+            if (!unit.spawned) {
+                unit.spawned = true;
+                lyricSpawner.say(unit.text);
+            }
+        } else {
+            unit.spawned = false;
         }
     }
 
@@ -150,7 +156,7 @@ export async function loadLevel(pixiApp, switchTo) {
             artist.text += player.data.song.artist;
             title.text += player.data.song.name;
 
-            let w = player.video.firstChar;
+            let w = player.video.firstWord;
 
             while(w && w.next){
                 w.animate = animateWord;

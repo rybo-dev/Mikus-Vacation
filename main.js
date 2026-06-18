@@ -20,7 +20,7 @@ TextureSource.defaultOptions.scaleMode = 'nearest';
 
     document.body.appendChild(app.canvas);
 
-    await Assets.init({manifest : "manifest.json"});
+    await Assets.init({manifest : "public/manifest.json"});
     await Assets.loadBundle("shared");
 
     init(app);

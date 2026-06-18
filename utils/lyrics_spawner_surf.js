@@ -15,25 +15,38 @@ export class LyricSpawner {
         this.spawnPoint = Math.round((this.yMin + this.yMax) / 2); // default spawn in center
         this.spawnTargetPoint = this.spawnPoint;
         this.activeTexts = [];
+        this._queue = '';
+        this._currentChar = null;
 
         app.ticker.add(this._update, this);
     }
 
-    spawnText(char){
+    say(word) {
+        this._queue += word;
+    }
+
+    _canSpawnNext() {
+        if (this._queue.length === 0) return false;
+        if (this._currentChar === null) return true;
+
+        const rightEdge = this._currentChar.x + this._currentChar.width;
+        return rightEdge < 0;
+    }
+
+    _spawnNext() {
+        const char = this._queue[0];
+        this._queue = this._queue.slice(1);
+
         const lyricChar = new Text({
             text: char,
-            style: {
-                font: 12
-            }
-        })
+            style: { fontSize: 20 }
+        });
 
         lyricChar.y = this.spawnPoint;
-
         this.lyricContainer.addChild(lyricChar);
 
-        this.activeTexts.push({
-            text: lyricChar
-        })
+        this._currentChar = lyricChar;
+        this.activeTexts.push({ text: lyricChar });
     }
 
     moveSpawnPointTo(y){
@@ -41,10 +54,14 @@ export class LyricSpawner {
     }
 
     _update = (ticker) => {
-        const dt = ticker.deltaMS / 1000; // sets delta time
+        const dt = ticker.deltaMS / 1000;
 
         this.moveText(dt);
         this.moveSpawnPoint(dt);
+
+        if (this._canSpawnNext()) {
+            this._spawnNext();
+        }
     }
 
     moveText(dt){
@@ -57,6 +74,12 @@ export class LyricSpawner {
 
             if (rightEdge < 0){
                 this.lyricContainer.removeChild(char.text);
+
+                // if this is the most recently spawned char, clear the reference
+                if (char.text === this._currentChar) {
+                    this._currentChar = null;
+                }
+
                 char.text.destroy();
             } else {
                 surivingTexts.push(char);
